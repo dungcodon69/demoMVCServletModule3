@@ -78,14 +78,9 @@ public class StudentController extends HttpServlet {
                 break;
             case "delete":
                 long idDelete = Long.parseLong(req.getParameter("id"));
-                Student studentDelete = studentService.findById(idDelete);
-                if (studentDelete != null){
                     studentService.deleteById(idDelete);
                     resp.sendRedirect("/student");
-                }
-                else {
-                    req.getRequestDispatcher("/error.jsp").forward(req,resp);
-                }
+                    //req.getRequestDispatcher("/error.jsp").forward(req,resp);
                 break;
             case "search":
                 String searchName = req.getParameter("searchName");

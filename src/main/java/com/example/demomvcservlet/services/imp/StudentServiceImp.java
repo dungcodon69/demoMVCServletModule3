@@ -18,10 +18,6 @@ public class StudentServiceImp implements IStudentService {
         studentRepository.add(student);
     }
 
-    @Override
-    public Student findById(long id) {
-        return studentRepository.findById(id);
-    }
 
     @Override
     public void updateById(long id, Student student1) {
@@ -36,5 +32,10 @@ public class StudentServiceImp implements IStudentService {
     @Override
     public List<Student> searchByName(String searchName) {
         return studentRepository.searchByName(searchName);
+    }
+
+    @Override
+    public Student findById(long id) {
+        return studentRepository.findById(id);
     }
 }

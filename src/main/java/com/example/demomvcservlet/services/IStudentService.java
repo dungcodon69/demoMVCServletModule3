@@ -9,11 +9,12 @@ public interface IStudentService {
 
     void save(Student student);
 
-    Student findById(long id);
 
     void updateById(long id, Student student1);
 
     void deleteById(long idDelete);
 
     List<Student> searchByName(String searchName);
+
+    Student findById(long id);
 }
