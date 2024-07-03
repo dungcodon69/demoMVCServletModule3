@@ -1,11 +1,12 @@
 package com.example.demomvcservlet.services;
 
+import com.example.demomvcservlet.dto.StudentDTO;
 import com.example.demomvcservlet.models.Student;
 
 import java.util.List;
 
 public interface IStudentService {
-    List<Student> findAll();
+    List<StudentDTO> findAll();
 
     void save(Student student);
 
@@ -14,7 +15,7 @@ public interface IStudentService {
 
     void deleteById(long idDelete);
 
-    List<Student> searchByName(String searchName);
+    List<StudentDTO> searchByName(String searchName);
 
     Student findById(long id);
 }

@@ -46,6 +46,15 @@
             <input type="number" class="form-control" id="point" name="point" min="0" max="10" value="${student.point}">
 
         </div>
+        <div class="mb-3">
+            <label class="form-label" for="classroom">Lớp học</label>
+            <select name="classroom" id="classroom">
+                <c:forEach var="classroom" items="${classroom}">
+                    <option value="${classroom.id_class}" <c:if test="${student.id_class == classroom.id_class}">selected</c:if> >${classroom.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

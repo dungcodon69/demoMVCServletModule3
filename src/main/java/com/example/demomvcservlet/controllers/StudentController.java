@@ -2,8 +2,12 @@ package com.example.demomvcservlet.controllers;
 
 
 
+import com.example.demomvcservlet.dto.StudentDTO;
+import com.example.demomvcservlet.models.ClassRoom;
 import com.example.demomvcservlet.models.Student;
+import com.example.demomvcservlet.services.IClassRoomService;
 import com.example.demomvcservlet.services.IStudentService;
+import com.example.demomvcservlet.services.imp.ClassRoomServiceImp;
 import com.example.demomvcservlet.services.imp.StudentServiceImp;
 
 import javax.servlet.ServletException;
@@ -18,6 +22,8 @@ import java.util.List;
 public class StudentController extends HttpServlet {
 
     private static IStudentService studentService = new StudentServiceImp();
+    private static IClassRoomService classRoomService = new ClassRoomServiceImp();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,13 +34,17 @@ public class StudentController extends HttpServlet {
         switch (action) {
             case "create":
                 System.out.println("Create");
+                List<ClassRoom> classRooms = classRoomService.findAll();
+                req.setAttribute("classroom", classRooms);
                 req.getRequestDispatcher("/student/create.jsp").forward(req,resp);
                 break;
             case "update":
                 long id = Long.parseLong(req.getParameter("id"));
                 Student student = studentService.findById(id);
+                List<ClassRoom> classRooms1 = classRoomService.findAll();
                 if (student != null){
                     req.setAttribute("student",student);
+                    req.setAttribute("classroom",classRooms1);
                     req.getRequestDispatcher("/student/update.jsp").forward(req,resp);
                 } else {
                     req.getRequestDispatcher("/error.jsp").forward(req,resp);
@@ -42,7 +52,7 @@ public class StudentController extends HttpServlet {
                 break;
 //
             default:
-                List<Student> students = studentService.findAll();
+                List<StudentDTO> students = studentService.findAll();
                 req.setAttribute("students", students);
                 req.getRequestDispatcher("/student/list.jsp").forward(req, resp);
                 break;
@@ -59,11 +69,11 @@ public class StudentController extends HttpServlet {
         }
         switch (action){
             case "create":
-
                 String name = req.getParameter("name");
                 String address = req.getParameter("address");
                 Float point = Float.valueOf(req.getParameter("point"));
-                Student student = new Student(name,address,point);
+                int id_class = Integer.parseInt(req.getParameter("classroom"));
+                Student student = new Student(name,address,point,id_class);
                 studentService.save(student);
                 resp.sendRedirect("/student");
                 break;
@@ -72,7 +82,8 @@ public class StudentController extends HttpServlet {
                 String nameUpdate = req.getParameter("name");
                 String addressUpdate = req.getParameter("address");
                 float pointUpdate = Float.parseFloat(req.getParameter("point"));
-                Student student1 = new Student(nameUpdate,addressUpdate,pointUpdate);
+                int idClassUpdate = Integer.parseInt(req.getParameter("classroom"));
+                Student student1 = new Student(nameUpdate,addressUpdate,pointUpdate,idClassUpdate);
                 studentService.updateById(id,student1);
                 resp.sendRedirect("/student");
                 break;
@@ -84,7 +95,7 @@ public class StudentController extends HttpServlet {
                 break;
             case "search":
                 String searchName = req.getParameter("searchName");
-                List<Student> studentsSearch = studentService.searchByName(searchName);
+                List<StudentDTO> studentsSearch = studentService.searchByName(searchName);
                 req.setAttribute("students", studentsSearch);
                 req.getRequestDispatcher("/student/list.jsp").forward(req, resp);
                 break;

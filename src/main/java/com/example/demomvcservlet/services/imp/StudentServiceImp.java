@@ -1,5 +1,6 @@
 package com.example.demomvcservlet.services.imp;
 
+import com.example.demomvcservlet.dto.StudentDTO;
 import com.example.demomvcservlet.models.Student;
 import com.example.demomvcservlet.repositories.StudentRepository;
 import com.example.demomvcservlet.services.IStudentService;
@@ -9,7 +10,7 @@ import java.util.List;
 public class StudentServiceImp implements IStudentService {
     StudentRepository studentRepository = new StudentRepository();
     @Override
-    public List<Student> findAll(){
+    public List<StudentDTO> findAll(){
         return studentRepository.findAll();
     }
 
@@ -30,7 +31,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
-    public List<Student> searchByName(String searchName) {
+    public List<StudentDTO> searchByName(String searchName) {
         return studentRepository.searchByName(searchName);
     }
 

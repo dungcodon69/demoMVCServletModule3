@@ -51,10 +51,11 @@
         <thead>
         <tr>
             <th>Số thứ tự</th>
-            <th>Mã</th>
+            <!-- <th>Mã</th> -->
             <th>Họ và tên</th>
             <th>Địa chỉ</th>
             <th>Điểm</th>
+            <th>Lớp</th>
             <th>Học lực</th>
             <th>Chức năng</th>
         </tr>
@@ -64,10 +65,11 @@
         <c:forEach var="student" items="${students}" varStatus="status">
             <tr>
                 <td>${status.count}</td>
-                <td>${student.id}</td>
+<%--                <td>${student.id}</td>--%>
                 <td>${student.name}</td>
                 <td>${student.address}</td>
                 <td>${student.point}</td>
+                <td>${student.className}</td>
                 <td>
                         <%--                    <c:if test="${student.point >= 8}">Học sinh giỏi</c:if>--%>
                         <%--                    <c:if test="${student.point >= 6.5 && student.point < 8}">Học sinh khá</c:if>--%>
